@@ -3,10 +3,11 @@ export interface Product {
   name: string
   price: number
   imgUrl: string
-  type: {
-    sex: string
+  type?: {
+    Sex: string
     type: string
   }
   sizes: Array<string>
+  categoriesId: string
   path?: string
 }

@@ -1,16 +1,21 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { prisma } from './api/prismaClient'
+import { seedDatabaseRoute } from './routes/seedDatabase'
+import { getProductsRoute } from './routes/products'
+import { getCategoriesRoute } from './routes/categories'
 const fastify = Fastify()
 
-fastify.register(cors, {
-  origin: true,
-})
-
 async function main() {
-  fastify.get('/', async (request, reply) => {
-    return 'oi'
+  fastify.register(cors, {
+    origin: true,
   })
+
+  fastify.register(seedDatabaseRoute)
+
+  fastify.register(getProductsRoute)
+
+  fastify.register(getCategoriesRoute)
 }
 
 main()

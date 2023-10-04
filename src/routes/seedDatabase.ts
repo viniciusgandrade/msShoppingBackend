@@ -1,5 +1,4 @@
-import { Product } from '@prisma/client'
-import { FastifyInstance } from 'fastify'
+import { FastifyInstance, FastifyReply } from 'fastify'
 import path from 'path'
 import { prisma } from '../api/prismaClient'
 import { compressImage } from '../api/sendToS3'
@@ -7,9 +6,10 @@ import { authorize, listFiles, donwloadPhotos } from '../auth/drive/authDrive'
 import { getTypes } from '../helpers/getTypes'
 import { ProductCSV } from '../models/ProductCSV'
 import csv from 'csvtojson'
+import { Product } from '../models/Product'
 
 export async function seedDatabaseRoute(app: FastifyInstance) {
-  app.get('/seedDatabase', async (reply) => {
+  app.get('/seedDatabase', async (request, reply: FastifyReply) => {
     const jsonCSV: Array<ProductCSV> = await csv().fromFile(
       path.resolve(__dirname, 'temp', 'data.csv'),
     )
@@ -39,6 +39,7 @@ export async function seedDatabaseRoute(app: FastifyInstance) {
       })
       .filter((item) => item.fileId)
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const photos: Array<Product> = await authorize()
       .then((auth) => donwloadPhotos(filteredFiles, auth))
@@ -52,12 +53,14 @@ export async function seedDatabaseRoute(app: FastifyInstance) {
       const allCategories = await prisma.categories.findMany()
 
       const createdProduct = await prisma.product.create({
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         data: {
           imgUrl: finalPath,
           name: photo.name,
           price: photo.price,
           categoriesId: allCategories.find(
-            (categorie) => categorie.type === photo.type.type,
+            (categorie) => categorie.type === photo.type?.type,
           )?.id,
           sizes: photo.sizes,
         },
