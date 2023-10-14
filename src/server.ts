@@ -1,4 +1,4 @@
-import Fastify, { fastify } from 'fastify'
+import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { prisma } from './api/prismaClient'
 // import { seedDatabaseRoute } from './routes/seedDatabase'

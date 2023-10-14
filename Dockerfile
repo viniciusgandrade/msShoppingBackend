@@ -12,11 +12,11 @@ RUN npm install
 
 ADD tsconfig.json /src
 
+ADD dist /src/dist
+
 ADD src /src
 
 ADD prisma /src
-
-RUN npm run build
 
 CMD ["npm", "start"]
 

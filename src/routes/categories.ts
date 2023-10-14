@@ -17,12 +17,14 @@ export async function getCategoriesRoute(app: FastifyInstance) {
     reply.code(categories.code).send(categories.body)
   })
 
-  app.get('/seedCategories', async (request, reply) => {
+  app.get('/seedCategories', async () => {
     for (const key in types) {
       await prisma.categories.create({
         data: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           Sex: types[key].sex,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           type: types[key].type,
         },
