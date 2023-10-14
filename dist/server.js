@@ -9,13 +9,13 @@ const prismaClient_1 = require("./api/prismaClient");
 // import { seedDatabaseRoute } from './routes/seedDatabase'
 const products_1 = require("./routes/products");
 const categories_1 = require("./routes/categories");
-// import { seedDatabaseRoute } from './routes/seedDatabase'
+const seedDatabase_1 = require("./routes/seedDatabase");
 const fastify = (0, fastify_1.default)();
 async function main() {
     fastify.register(cors_1.default, {
         origin: true,
     });
-    // fastify.register(seedDatabaseRoute)
+    fastify.register(seedDatabase_1.seedDatabaseRoute);
     fastify.register(products_1.getProductsRoute);
     fastify.register(categories_1.getCategoriesRoute);
 }
@@ -30,7 +30,7 @@ main()
 });
 const start = async () => {
     try {
-        await fastify.listen({ port: 8088 });
+        await fastify.listen({ port: 3333 });
         console.log('Listining on port 3333');
     }
     catch (err) {

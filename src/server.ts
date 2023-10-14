@@ -4,7 +4,7 @@ import { prisma } from './api/prismaClient'
 // import { seedDatabaseRoute } from './routes/seedDatabase'
 import { getProductsRoute } from './routes/products'
 import { getCategoriesRoute } from './routes/categories'
-// import { seedDatabaseRoute } from './routes/seedDatabase'
+import { seedDatabaseRoute } from './routes/seedDatabase'
 const fastify = Fastify()
 
 async function main() {
@@ -12,7 +12,7 @@ async function main() {
     origin: true,
   })
 
-  // fastify.register(seedDatabaseRoute)
+  fastify.register(seedDatabaseRoute)
 
   fastify.register(getProductsRoute)
 
@@ -31,7 +31,7 @@ main()
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 8088 })
+    await fastify.listen({ port: 3333 })
 
     console.log('Listining on port 3333')
   } catch (err) {
