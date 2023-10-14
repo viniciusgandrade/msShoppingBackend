@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext .ts --fix",
-    "start:dev": "nodemon src/server.ts"
+    "start": "node dist/server.js",
+    "start:dev": "nodemon src/server.ts --trace-warnings",
+    "build": "tsc --build"
   },
   "author": "Josué Dias",
   "license": "ISC",

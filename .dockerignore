@@ -1,0 +1,3 @@
+./src/api/sendToS3.ts
+
+./src/routes/seedDatabase.ts

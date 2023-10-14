@@ -1,5 +1,6 @@
 export function getTypes(type: string) {
-  if (type.includes('camisa tailandesa')) return types.camisaTailandesa
+  if (type.includes('camisa tailandesa') && !type.includes('feminina'))
+    return types.camisaTailandesa
 
   if (type.includes('camisa premium')) return types.camisaPremium
 
@@ -23,7 +24,7 @@ export const types = {
   },
   camisaTailandesaFem: {
     sex: 'Feminina',
-    type: 'Camisa tailandesa',
+    type: 'Camisa tailandesa feminina',
   },
   moletomPremium: {
     sex: 'unisex',

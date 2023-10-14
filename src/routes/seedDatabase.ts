@@ -11,7 +11,7 @@ import { Product } from '../models/Product'
 export async function seedDatabaseRoute(app: FastifyInstance) {
   app.get('/seedDatabase', async (request, reply: FastifyReply) => {
     const jsonCSV: Array<ProductCSV> = await csv().fromFile(
-      path.resolve(__dirname, 'temp', 'data.csv'),
+      path.resolve(__dirname, '..', 'temp', 'data.csv'),
     )
 
     const files = await authorize()
@@ -60,7 +60,8 @@ export async function seedDatabaseRoute(app: FastifyInstance) {
           name: photo.name,
           price: photo.price,
           categoriesId: allCategories.find(
-            (categorie) => categorie.type === photo.type?.type,
+            (categorie: { type: string }) =>
+              categorie.type === photo.type?.type,
           )?.id,
           sizes: photo.sizes,
         },
