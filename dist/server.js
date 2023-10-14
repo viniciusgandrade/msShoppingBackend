@@ -9,13 +9,13 @@ const prismaClient_1 = require("./api/prismaClient");
 // import { seedDatabaseRoute } from './routes/seedDatabase'
 const products_1 = require("./routes/products");
 const categories_1 = require("./routes/categories");
-const seedDatabase_1 = require("./routes/seedDatabase");
+// import { seedDatabaseRoute } from './routes/seedDatabase'
 const fastify = (0, fastify_1.default)();
 async function main() {
     fastify.register(cors_1.default, {
         origin: true,
     });
-    fastify.register(seedDatabase_1.seedDatabaseRoute);
+    // fastify.register(seedDatabaseRoute)
     fastify.register(products_1.getProductsRoute);
     fastify.register(categories_1.getCategoriesRoute);
 }
