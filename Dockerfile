@@ -10,18 +10,6 @@ RUN chown root.root .
 
 RUN npm install
 
-RUN apk update
-
-RUN apk add bash
-
-RUN apk add openrc
-
-RUN mkdir /run/openrc && touch /run/openrc/softlevel
-RUN rc-status
-
-RUN apk add nginx
-RUN rc-update add nginx
-
 ADD tsconfig.json /src
 
 ADD src /src
