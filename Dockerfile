@@ -16,8 +16,6 @@ ADD tsconfig.json /src
 
 ADD dist /src/dist
 
-ADD prisma /src/prisma
-
 ADD .env /src
 
 CMD ["npm", "start"]
