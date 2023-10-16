@@ -12,8 +12,6 @@ RUN npm install
 
 ADD prisma /src/prisma
 
-ADD tsconfig.json /src
-
 ADD dist /src/dist
 
 ADD .env /src
