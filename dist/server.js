@@ -6,10 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 const prismaClient_1 = require("./api/prismaClient");
-// import { seedDatabaseRoute } from './routes/seedDatabase'
 const products_1 = require("./routes/products");
 const categories_1 = require("./routes/categories");
-// import { seedDatabaseRoute } from './routes/seedDatabase'
 const fastify = (0, fastify_1.default)();
 async function main() {
     fastify.register(cors_1.default, {
@@ -30,7 +28,7 @@ main()
 });
 const start = async () => {
     try {
-        await fastify.listen({ port: 3333 });
+        await fastify.listen({ port: 3333, host: '0.0.0.0' });
         console.log('Listining on port 3333');
     }
     catch (err) {

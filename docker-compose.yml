@@ -7,7 +7,7 @@ services:
     ports: 
       - "3333:3333"
     volumes: 
-      - ./src:/src/src
+      - ./dist:/src/dist
       - ./node_modules:/src/node_modules
   database: 
     image: postgres
