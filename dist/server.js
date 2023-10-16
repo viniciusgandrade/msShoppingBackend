@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 const prismaClient_1 = require("./api/prismaClient");
+const dotenv_1 = __importDefault(require("dotenv"));
 const products_1 = require("./routes/products");
 const categories_1 = require("./routes/categories");
 const fastify = (0, fastify_1.default)();
@@ -13,9 +14,7 @@ async function main() {
     fastify.register(cors_1.default, {
         origin: true,
     });
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    process.config();
+    dotenv_1.default.config();
     // fastify.register(seedDatabaseRoute)
     fastify.register(products_1.getProductsRoute);
     fastify.register(categories_1.getCategoriesRoute);
