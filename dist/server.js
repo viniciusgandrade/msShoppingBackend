@@ -13,6 +13,9 @@ async function main() {
     fastify.register(cors_1.default, {
         origin: true,
     });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    process.config();
     // fastify.register(seedDatabaseRoute)
     fastify.register(products_1.getProductsRoute);
     fastify.register(categories_1.getCategoriesRoute);
