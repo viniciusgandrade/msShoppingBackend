@@ -10,7 +10,7 @@ RUN chown root.root .
 
 RUN npm install
 
-RUN npx prisma generate
+ADD prisma /src
 
 ADD tsconfig.json /src
 
