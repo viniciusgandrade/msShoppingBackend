@@ -1,7 +1,6 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { prisma } from './api/prismaClient'
-import dotenv from 'dotenv'
 import { getProductsRoute } from './routes/products'
 import { getCategoriesRoute } from './routes/categories'
 const fastify = Fastify()
@@ -10,8 +9,6 @@ async function main() {
   fastify.register(cors, {
     origin: true,
   })
-
-  dotenv.config()
 
   // fastify.register(seedDatabaseRoute)
 
