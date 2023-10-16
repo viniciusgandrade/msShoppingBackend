@@ -9,6 +9,9 @@ async function main() {
   fastify.register(cors, {
     origin: true,
   })
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  process.config()
 
   // fastify.register(seedDatabaseRoute)
 
