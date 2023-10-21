@@ -2,7 +2,7 @@ version: '3'
 
 services:
   msshop-api:
-    image: node:16.15-alpine3.14
+    image: node:18.16-alpine
     container_name: msshop-api
     working_dir: /msshop-api
     ports:
