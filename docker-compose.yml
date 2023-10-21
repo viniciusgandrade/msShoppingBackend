@@ -1,23 +1,73 @@
 version: '3'
 
-services: 
-  src: 
-    image: msshoppingserver-dev
-    build: .
-    ports: 
+services:
+  msshop-api:
+    image: node:16.15-alpine3.14
+    container_name: msshop-api
+    working_dir: /dist
+    ports:
       - "3333:3333"
-    volumes: 
-      - ./dist:/src/dist
-      - ./node_modules:/src/node_modules
-  database: 
+    volumes:
+      - ./dist:/dist
+    environment:
+      TZ: "America/Sao_Paulo"
+      VIRTUAL_PORT: 3333
+      VIRTUAL_HOST: api.msshopping.shop
+      LETSENCRYPT_HOST: api.msshopping.shop
+      LETSENCRYPT_EMAIL: ms.shooping2023@gmail.com
+    entrypoint: [ "npm", "run", "start" ]
+    networks:
+      - internal-network
+    links:
+      - database
+    restart: always
+  jwildernginxproxy:
+    image: jwilder/nginx-proxy
+    container_name: jwildernginxproxy
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs:ro
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./proxy.conf:/etc/nginx/conf.d/my_proxy.conf
+    networks:
+      - internal-network
+    restart: always
+
+  letsencrypt-nginx-proxy-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt-nginx-proxy-companion
+    environment:
+      - NGINX_PROXY_CONTAINER=jwildernginxproxy
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - internal-network
+    restart: always
+  database:
     image: postgres
-    environment: 
+    environment:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=2553218858"
       - "POSTGRES_DB=msshopping"
-    ports: 
+    ports:
       - 5441:5432
-    volumes: 
+    volumes:
       - pg-data:/var/lib/postgresql/data
-volumes: 
+volumes:
+  certs:
+  html:
+  vhostd:
   pg-data:
+
+networks:
+  internal-network:
+    driver: bridge
