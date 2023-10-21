@@ -15,7 +15,7 @@ services:
       VIRTUAL_HOST: api.msshopping.shop
       LETSENCRYPT_HOST: api.msshopping.shop
       LETSENCRYPT_EMAIL: ms.shooping2023@gmail.com
-    entrypoint: ["npm", "install", "&&", "npm", "run", "start"]
+    entrypoint: ["npm", "run", "start"]
     networks:
       - internal-network
     links:
